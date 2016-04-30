@@ -1,0 +1,7 @@
+#!/bin/bash
+
+tmux new-session -d -s ws -n code
+tmux send-keys -t ws "vim code.c" ^m
+tmux split-window -h
+tmux send-keys -t ws "clear && gcc code.c && ./a.out" ^m
+tmux attach -t ws
