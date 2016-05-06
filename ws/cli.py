@@ -2,8 +2,8 @@
 
 """
 usage:
-    ws init <template> [options]
-    ws open [options]
+    ws init <template> [DIRECTORY]
+    ws open
 
     -h, --help  show help screen
 
@@ -54,18 +54,39 @@ def generate_ws_id():
 templates = os.path.split(os.path.realpath(__file__))[0]+"/templates/"
 
 if args["init"]:
-    template = templates+args["<template>"]
+    directory = args['DIRECTORY']
 
-    if os.path.exists(".ws"):
-        print("A workstation already exists here (path: ./.ws)")
-        sys.exit(1)
+    # Generate a default directory
+    if not directory:
+        directory = args['<template>']
+
+        # Add a number to the directory if it already exists
+        if os.path.exists(directory):
+            directory_base = directory + '_'
+            c = 2
+            while True:
+                directory = directory_base + str(c)
+
+                if not os.path.exists(directory):
+                    break
+
+                c += 1
+
+    if os.path.exists(directory):
+        print("That directory already exists.")
+        exit(1)
+
+    template = templates+args["<template>"]
 
     if not os.path.exists(template):
         print("No template found at ["+template+"]")
         sys.exit(1)
 
-    call(["cp -r "+template+"/* ./"],shell=True)
-    call(["cp -r "+template+"/.ws ./"],shell=True)
+    os.mkdir(directory)
+    os.chdir(directory)
+
+    call(["cp -r "+template+"/* ./"], shell=True)
+    call(["cp -r "+template+"/.ws ./"], shell=True)
 
     with open('.ws/id', 'w') as f:
         f.write(generate_ws_id())
