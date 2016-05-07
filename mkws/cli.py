@@ -2,8 +2,8 @@
 
 """
 usage:
-    ws init <template> [DIRECTORY]
-    ws open
+    mkws init <template> [DIRECTORY]
+    mkws open
 
     -h, --help  show help screen
 
@@ -86,17 +86,17 @@ if args["init"]:
     os.chdir(directory)
 
     call(["cp -r "+template+"/* ./"], shell=True)
-    call(["cp -r "+template+"/.ws ./"], shell=True)
+    call(["cp -r "+template+"/.mkws ./"], shell=True)
 
-    with open('.ws/id', 'w') as f:
+    with open('.mkws/id', 'w') as f:
         f.write(generate_ws_id())
 
 
 if args["open"] or args["init"]:
-    with open('.ws/id', 'r') as f:
-        os.environ['WS_SESSION'] = 'ws-' + f.read()
+    with open('.mkws/id', 'r') as f:
+        os.environ['WS_SESSION'] = 'mkws-' + f.read()
 
-    call(["./.ws/open"])
+    call(["./.mkws/open"])
 
 else:
     raise NotImplemented("Unable to parse command")

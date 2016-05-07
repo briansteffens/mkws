@@ -1,4 +1,4 @@
-# ws
+# mkws
 
 Quickly generate throwaway tmux development environments for quick tests,
 calculations, etc.
@@ -12,21 +12,21 @@ that in a tmux session, and compile/run the program.
 Start a c workspace in a generated directory name (`c`, `c_2`, `c_3`, etc):
 
 ```bash
-ws init c
+mkws init c
 ```
 
 Start a python3 workspace in a specific directory:
 
 ```bash
-ws init python3 my_ws
+mkws init python3 my_ws
 ```
 
 Reopen a previous workspace (from the workspace directory):
 
 ```bash
-ws open
+mkws open
 ```
 
 ## Templates
 
-Available templates are located in [ws/templates/](ws/templates/).
+Available templates are located in [mkws/templates/](mkws/templates/).
