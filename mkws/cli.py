@@ -53,6 +53,13 @@ def generate_ws_id():
 
 templates = os.path.split(os.path.realpath(__file__))[0]+"/templates/"
 
+if not os.path.exists(templates):
+    templates = "/usr/share/mkws/templates/"
+
+    if not os.path.exists(templates):
+        print("Unable to locate templates directory.")
+        sys.exit(1)
+
 if args["init"]:
     directory = args['DIRECTORY']
 
