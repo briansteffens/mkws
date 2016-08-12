@@ -1,0 +1,7 @@
+#!/bin/bash
+
+tmux new-session -d -s $WS_SESSION -n code
+tmux send-keys -t $WS_SESSION "vim code.asm" ^m
+tmux split-window -h
+tmux send-keys -t $WS_SESSION "clear && nasm -f elf64 code.asm && ld code.o && ./a.out; echo $?" ^m
+tmux attach -t $WS_SESSION
